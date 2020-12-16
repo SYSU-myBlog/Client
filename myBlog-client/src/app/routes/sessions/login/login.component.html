@@ -5,19 +5,19 @@
     <form class="form-field-full" [formGroup]="loginForm">
 
       <mat-form-field appearance="outline">
-        <mat-label>{{'login.username' | translate}}: ng-matero</mat-label>
-        <input matInput placeholder="ng-matero" formControlName="username" required>
+        <mat-label>{{'login.username' | translate}}</mat-label>
+        <input matInput placeholder="请输入您的用户名" formControlName="username" required>
         <mat-error *ngIf="username.invalid">
-          {{'login.please_enter' | translate}} <strong>ng-matero</strong>
+          {{'login.please_enter' | translate}} <strong>用户名</strong>
         </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>{{'login.password' | translate}}: ng-matero</mat-label>
-        <input matInput placeholder="ng-matero" type="password"
+        <mat-label>{{'login.password' | translate}}</mat-label>
+        <input matInput placeholder="请输入您的密码" type="password"
                formControlName="password" required>
         <mat-error *ngIf="password.invalid">
-          {{'login.please_enter' | translate}} <strong>ng-matero</strong>
+          {{'login.please_enter' | translate}} <strong>密码</strong>
         </mat-error>
       </mat-form-field>
 

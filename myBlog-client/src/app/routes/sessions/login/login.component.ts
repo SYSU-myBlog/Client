@@ -7,9 +7,10 @@ import { SettingsService, StartupService, TokenService } from '@core';
   selector: 'app-login',
   templateUrl: './login.component.html',
 })
+
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-
+  
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -18,8 +19,10 @@ export class LoginComponent implements OnInit {
     private settings: SettingsService
   ) {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.pattern('ng-matero')]],
-      password: ['', [Validators.required, Validators.pattern('ng-matero')]],
+      // username: ['', [Validators.required, Validators.pattern('ng-matero')]],
+      // password: ['', [Validators.required, Validators.pattern('ng-matero')]],
+      username: ['',[Validators.required]],
+      password: ['',[Validators.required]],
     });
   }
 
@@ -34,7 +37,12 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    const { token, uid, username } = { token: 'ng-matero-token', uid: 1, username: 'ng-matero' };
+    
+    const { token, uid, username } = { 
+      token: 'ng-matero-token', 
+      uid: 1, 
+      username: 'zl',
+    };
     // Set user info
     this.settings.setUser({
       id: uid,
