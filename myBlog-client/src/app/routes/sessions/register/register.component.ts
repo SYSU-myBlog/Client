@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
     };
     // console.log(JSON.stringify(formData));
     // 发送登录请求
-    this.$http.post("http://172.26.43.243:9999/user/register",formData).subscribe(res=>{ 
+    this.$http.post("http://172.26.104.90:9999/user/register",formData).subscribe(res=>{ 
       console.log(JSON.stringify(res)); 
       var res_string = JSON.stringify(res);
       var res_data = {

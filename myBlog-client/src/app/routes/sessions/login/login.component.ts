@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
     };
     // console.log(JSON.stringify(formData));
     // 发送登录请求
-    this.$http.post("http://172.26.43.243:9999/user/login",formData).subscribe(res=>{ 
+    this.$http.post("http://172.26.104.90:9999/user/login",formData).subscribe(res=>{ 
       //this.resList = res;
       var res_string = JSON.stringify(res);
       var res_data = {
@@ -58,32 +58,48 @@ export class LoginComponent implements OnInit {
       // console.log(res_data.Message);
       var id_string = JSON.stringify(res_data.Message);
       var id = JSON.parse(id_string).Id;
-      console.log(id);
-      this.$http.post("http://172.26.43.243:9999/user","").subscribe(res=>{
-        // const { token, uid, username } = { 
-        //   token: 'ng-matero-token', 
-        //   uid: 1, 
-        //   username: 'zl',
-        // };
+      // console.log("http://172.26.104.90:9999/user/uid/"+id);
+      this.$http.get("http://172.26.104.90:9999/user/uid/"+id).subscribe(res=>{
         // Set user info
         console.log(res);
-        // this.settings.setUser({
-        //   id: id,
-        //   name: 'Zongbin',
-        //   email: 'nzb329@163.com',
-        //   avatar: './assets/images/avatar.jpg',
-        // });
-        // // Set token info
-        // this.token.set({ token, uid, username });
-        // // Regain the initial data
-        // this.startup.load().then(() => {
-        //   let url = this.token.referrer!.url || '/';
-        //   if (url.includes('/auth')) {
-        //     url = '/';
-        //   }
-        //   this.router.navigateByUrl(url);
-        // });
+        var res_string2 = JSON.stringify(res);
+        var res_data2 = {
+          Message:"",
+        };
+        res_data2 = JSON.parse(res_string2);
+        var mess_string = JSON.stringify(res_data2.Message);
+        var mess = {
+          Username : "",
+          Email : "",
+          Id : "",
+          Password : "",
+          Phone : "",
+        } 
+        mess = JSON.parse(mess_string);
+        console.log(mess);
+        this.settings.setUser({
+          id: id,
+          name: mess.Username,
+          email: mess.Email,
+          avatar: './assets/images/avatar.jpg',
+        });
+        const { token, uid, username } = { 
+          token: 'ng-matero-token', 
+          uid: id, 
+          username: mess.Username,
+        };
+        // Set token info
+        this.token.set({ token, uid, username});
+        // Regain the initial data
+        this.startup.load().then(() => {
+          let url = this.token.referrer!.url || '/';
+          if (url.includes('/auth')) {
+            url = '/';
+          }
+          this.router.navigateByUrl(url);
+        });
       })
      });
+     this.router.navigateByUrl("/");
   }
 }
