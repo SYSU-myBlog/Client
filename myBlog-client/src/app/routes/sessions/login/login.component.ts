@@ -55,9 +55,11 @@ export class LoginComponent implements OnInit {
         Message:"",
       };
       res_data = JSON.parse(res_string);
+      
       // console.log(res_data.Message);
       var id_string = JSON.stringify(res_data.Message);
       var id = JSON.parse(id_string).Id;
+
       // console.log("http://172.26.104.90:9999/user/uid/"+id);
       this.$http.get("http://172.26.104.90:9999/user/uid/"+id).subscribe(res=>{
         // Set user info
