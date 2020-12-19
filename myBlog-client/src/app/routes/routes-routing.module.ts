@@ -67,11 +67,6 @@ const routes: Routes = [
         component: BlogCreateComponent,
         data: { title: 'create', titleI18n: 'create' },
       },
-      {
-        path: 'detail',
-        component: BlogDetailComponent,
-        data: { title: 'detail', titleI18n: 'detail' },
-      },
     ],
   },
   { path: '**', redirectTo: 'dashboard' },

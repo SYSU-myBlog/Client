@@ -47,6 +47,7 @@ export class BlogCreateComponent implements OnInit {
   }
 
   fanhui() : void {
+    this.settings.setParam({needsRefresh:true});
     this.router.navigateByUrl("/")
   }
 }

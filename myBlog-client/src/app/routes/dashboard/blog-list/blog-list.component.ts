@@ -1,4 +1,4 @@
-import { Component, OnInit , Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from "@angular/common/http";  //这里是HttpClient
 import { SettingsService } from '@core';
@@ -15,7 +15,7 @@ export class BlogListComponent implements OnInit {
     private router: Router,
     private $http: HttpClient,
     private settings: SettingsService,
-  ) { 
+  ) {  
     this.$http.get(this.settings.URL+":9999/article/all").subscribe(res=>{
       var res_obj = {
         Message : [],
@@ -24,20 +24,13 @@ export class BlogListComponent implements OnInit {
       this.blogs = res_obj.Message;
       console.log(this.blogs);
     })
-    // this.blogs = [
-    //   {id:"123",title:"我好菜",content:"hhhhhh",publisher:"123"},
-    //   {id:"123",title:"我好菜",content:"hhhhhh"},
-    //   {id:"123",title:"我好菜",content:"hhhhhh"},
-    //   {id:"123",title:"我好菜",content:"hhhhhh"},
-    //   {id:"123",title:"我好菜",content:"hhhhhh"},
-    //   {id:"123",title:"我好菜",content:"hhhhhh"},
-    //   {id:"123",title:"我好菜",content:"hhhhhh"},
-    //   {id:"123",title:"我好菜",content:"hhhhhh"},
-    // ]
   }
 
   ngOnInit(): void {
-
+    if(this.settings.PARAM.needsRefresh){
+      location.reload();
+      this.settings.setParam({needsRefresh:false});
+    }
   }
 
   onSelect(blog): void {

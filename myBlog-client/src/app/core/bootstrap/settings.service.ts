@@ -6,6 +6,7 @@ import { AppSettings, defaults } from '../settings';
 export const USER_KEY = 'usr';
 export const BLOG_KEY = 'blg';
 export const URL_KEY = 'url';
+export const PARAM_KEY = 'param';
 
 export interface User {
   id?: string;
@@ -24,6 +25,10 @@ export interface Blog {
 
 export interface URL {
   url?: string;
+}
+
+export interface PARAM{
+  needsRefresh?: Boolean;
 }
 
 @Injectable({
@@ -54,6 +59,14 @@ export class SettingsService {
 
   get URL() {
     return "http://172.26.108.157";
+  }
+
+  get PARAM() {
+    return this.store.get(PARAM_KEY);
+  }
+
+  setParam(value: PARAM) {
+    this.store.set(PARAM_KEY, value);
   }
 
   /** User information */
