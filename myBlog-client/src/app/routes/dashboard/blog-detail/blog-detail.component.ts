@@ -24,10 +24,7 @@ export class BlogDetailComponent implements OnInit {
 
   dianzannum = 0;
 
-  comments = [
-    {content:"hhhh"},
-    {content:"qqqq"},
-  ];
+  comments = [];
 
   user = {
     id:"",
@@ -52,11 +49,20 @@ export class BlogDetailComponent implements OnInit {
     // console.log(this.selectedBlog);
     console.log(this.settings.URL+":9999/user/uid/"+this.selectedBlog.publisher);
     this.$http.get(this.settings.URL+":9999/user/uid/"+this.selectedBlog.publisher).subscribe(res=>{
-      console.log(res);
+      var user_data = res.Message;
+      this.user = {
+        name : user_data.Username,
+        email : user_data.Email,
+        id : user_data.Id,
+      }
+      console.log(this.user);
     });
 
     this.$http.get(this.settings.URL+":9999/like/id/"+this.selectedBlog.id).subscribe(res=>{
-      console.log(res);
+      var likes = res.Message;
+      if(likes == null){
+        this.dianzannum = 0;
+      }
     })
 
     this.$http.get(this.settings.URL+":9999/comment/id/"+this.selectedBlog.id).subscribe(res=>{
@@ -66,7 +72,16 @@ export class BlogDetailComponent implements OnInit {
   }
 
   dianzan(): void {
-    alert("点赞成功");
+    console.log("点赞的用户："+this.settings.user.name);
+    var req = {
+      liker : this.settings.user.name,
+      id : this.selectedBlog.id
+    }
+    this.$http.post(this.settings.URL+":9999/like/likeit",req).subscribe(res=>{
+      console.log(res);
+      // alert("点赞成功");
+      this.dianzannum++;
+    })
   }
 
   comment(): void {
@@ -86,6 +101,15 @@ export class BlogDetailComponent implements OnInit {
     }
     this.$http.post(this.settings.URL+":9999/comment/publish",req).subscribe(res=>{
       console.log(res);
+      if(this.comments == null){
+        this.comments = [{
+          Content:req.content,
+        }]
+      } else {
+        this.comments.push({
+          Content:req.content,
+        })
+      }
     })
   }
 

@@ -31,14 +31,7 @@ export class StartupService {
             this.menu.recursMenuForTranslation(res.menu, 'menu');
             this.menu.set(res.menu);
 
-            // Refresh user info
-            // In a real app, user data will be fetched from API
-            this.settings.setUser({
-              id: 1,
-              name: 'Zongbin',
-              email: 'nzb329@163.com',
-              avatar: './assets/images/avatar.jpg',
-            });
+            
           },
           () => {
             reject();

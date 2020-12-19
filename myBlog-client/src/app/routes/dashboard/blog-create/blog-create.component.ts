@@ -38,16 +38,19 @@ export class BlogCreateComponent implements OnInit {
     var req = {
       title : this.articleForm.get('title').value,
       content : this.articleForm.get('content').value,
+      publisher : this.settings.user.id,
     }
     console.log(req);
     // var req_json = JSON.stringify(req);
     this.$http.post(this.settings.URL+":9999/article/publish",req).subscribe(res=>{
       console.log(res);
+      this.settings.setParam({needsRefresh:true});
+      this.router.navigateByUrl("/dashboard");
     })
   }
 
   fanhui() : void {
     this.settings.setParam({needsRefresh:true});
-    this.router.navigateByUrl("/")
+    this.router.navigateByUrl("/dashboard");
   }
 }

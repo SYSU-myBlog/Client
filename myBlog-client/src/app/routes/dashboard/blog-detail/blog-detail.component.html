@@ -26,8 +26,8 @@
 </div>
 
 <div *ngIf="displayComment" class="comment-container">
-    <div *ngFor="let comment of comments"  class="comment">
-        {{comment.content}}
+    <div *ngFor="let comment of comments"  class="comment" scroll-y="true">
+        {{comment.Content}}
     </div>
     <form [formGroup]="commentForm">
         <input class="comment-input" placeholder="请输入评论" formControlName="content">

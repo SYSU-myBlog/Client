@@ -4,11 +4,11 @@ import { HttpClient } from "@angular/common/http";  //这里是HttpClient
 import { SettingsService } from '@core';
 
 @Component({
-  selector: 'app-blog-list',
-  templateUrl: './blog-list.component.html',
-  styleUrls: ['./blog-list.component.css'],
+  selector: 'app-blog-list-mine',
+  templateUrl: './blog-list-mine.component.html',
+  styleUrls: ['./blog-list-mine.component.css'],
 })
-export class BlogListComponent implements OnInit {
+export class BlogListMineComponent implements OnInit {
   blogs = [];
   
   constructor(
@@ -16,7 +16,7 @@ export class BlogListComponent implements OnInit {
     private $http: HttpClient,
     private settings: SettingsService,
   ) {  
-    this.$http.get(this.settings.URL+":9999/article/all").subscribe(res=>{
+    this.$http.get(this.settings.URL+":9999/article/publisher/"+this.settings.user.id).subscribe(res=>{
       var res_obj = {
         Message : [],
       }

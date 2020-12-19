@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
     // 发送登录请求
     this.$http.post(this.settings.URL+":9999/user/login",formData).subscribe(res=>{ 
       //this.resList = res;
+      // console.log(res);
       var res_string = JSON.stringify(res);
       var res_data = {
         Message:"",
@@ -86,7 +87,7 @@ export class LoginComponent implements OnInit {
           avatar: './assets/images/avatar.jpg',
         });
         
-        console.log(this.settings);
+        // console.log(this.settings);
 
         const { token, uid, username } = { 
           token: 'ng-matero-token', 
