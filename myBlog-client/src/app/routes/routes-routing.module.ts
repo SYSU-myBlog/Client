@@ -7,6 +7,9 @@ import { AuthLayoutComponent } from '../theme/auth-layout/auth-layout.component'
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './sessions/login/login.component';
 import { RegisterComponent } from './sessions/register/register.component';
+import { BlogListComponent} from './dashboard/blog-list/blog-list.component';
+import { BlogDetailComponent } from './dashboard/blog-detail/blog-detail.component';
+import { BlogCreateComponent } from './dashboard/blog-create/blog-create.component';
 import { AuthGuard } from '@core';
 
 const routes: Routes = [
@@ -42,6 +45,32 @@ const routes: Routes = [
         path: 'register',
         component: RegisterComponent,
         data: { title: 'Register', titleI18n: 'Register' },
+      },
+    ],
+  },
+  {
+    path: 'article',
+    component: AuthLayoutComponent,
+    children: [
+      {
+        path: 'list',
+        component: BlogListComponent,
+        data: { title: 'list', titleI18n: 'list' },
+      },
+      {
+        path: 'detail',
+        component: BlogDetailComponent,
+        data: { title: 'detail', titleI18n: 'detail' },
+      },
+      {
+        path: 'create',
+        component: BlogCreateComponent,
+        data: { title: 'create', titleI18n: 'create' },
+      },
+      {
+        path: 'detail',
+        component: BlogDetailComponent,
+        data: { title: 'detail', titleI18n: 'detail' },
       },
     ],
   },

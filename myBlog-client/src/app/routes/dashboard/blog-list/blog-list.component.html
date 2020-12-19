@@ -1,12 +1,27 @@
 <!-- <p>blog-list works!</p> -->
-<div *ngIf="hero">
+<!-- <div *ngIf="blog">
 
-    <h2>{{hero.name | uppercase}} Details</h2>
-    <div><span>id: </span>{{hero.id}}</div>
+    <h2>{{blog.name | uppercase}} Details</h2>
+    <div><span>id: </span>{{blog.id}}</div>
     <div>
-      <label>name:
-        <input [(ngModel)]="hero.name" placeholder="name"/>
-      </label>
+        <label>name:
+            <input [(ngModel)]="blog.name" placeholder="name" />
+        </label>
     </div>
-  
-  </div>
+
+</div> -->
+
+<div *ngFor="let blog of blogs" (click)="onSelect(blog)">
+    <div class="blog-container">
+        <p class="blog-title">{{blog.Title}}</p>
+        <p class="blog-time">
+            最近修改时间：{{blog.LastModified}}
+        </p>
+    </div>
+</div>
+
+
+<button mat-raised-button color="primary"
+        (click)="clickCreate()"
+        style="position: fixed;bottom:20px;width:10%;right:3%">
+    {{'发布文章' | translate}}</button>

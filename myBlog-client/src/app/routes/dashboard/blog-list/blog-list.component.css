@@ -1,0 +1,23 @@
+.blog-container{
+    width: 100%;
+    height: 100px;
+    line-height: 30px;
+    border-bottom: 1px solid gray;
+    color: #333;
+    border-radius: 10px;
+    margin: 8px 0;
+    background-color:rgba(158, 158, 158, 0.219);
+}
+
+.blog-title{
+    margin-left: 25px;
+    padding-top: 20px;
+    height:30px;
+    line-height: 30px;
+}
+
+.blog-time{
+    margin-left: 25px;
+    height:30px;
+    line-height: 30px;
+}

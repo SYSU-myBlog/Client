@@ -1,0 +1,43 @@
+.form{
+    width: 700px;
+    height: 500px;
+    padding: 20px 20px;
+    margin: auto;
+    background-color: white;
+}
+
+label{
+    display:block;
+    margin-left: 5px;
+}
+
+.title-input{
+    width:650px;
+    height:30px;
+    margin:5px 10px;
+}
+
+.content-input{
+    width:650px;
+    height:310px;
+    line-height: 30px;
+    padding: 5px 10px;
+    margin:5px 10px;
+    border:1px solid gray;
+}
+
+.create-button{
+    width: 200px;
+    margin: 5px 225px;
+    text-align: center;
+}
+
+.buttons-container{
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: gray;
+    position: fixed;
+    bottom: 35px;
+    right: 250px;
+}

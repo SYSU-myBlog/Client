@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
     };
     // console.log(JSON.stringify(formData));
     // 发送登录请求
-    this.$http.post("http://172.26.104.90:9999/user/login",formData).subscribe(res=>{ 
+    this.$http.post(this.settings.URL+":9999/user/login",formData).subscribe(res=>{ 
       //this.resList = res;
       var res_string = JSON.stringify(res);
       var res_data = {
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
       var id = JSON.parse(id_string).Id;
 
       // console.log("http://172.26.104.90:9999/user/uid/"+id);
-      this.$http.get("http://172.26.104.90:9999/user/uid/"+id).subscribe(res=>{
+      this.$http.get(this.settings.URL+":9999/user/uid/"+id).subscribe(res=>{
         // Set user info
         console.log(res);
         var res_string2 = JSON.stringify(res);
@@ -78,30 +78,29 @@ export class LoginComponent implements OnInit {
           Phone : "",
         } 
         mess = JSON.parse(mess_string);
-        console.log(mess);
+        // console.log(mess);
         this.settings.setUser({
           id: id,
           name: mess.Username,
           email: mess.Email,
           avatar: './assets/images/avatar.jpg',
         });
+        
+        console.log(this.settings);
+
         const { token, uid, username } = { 
           token: 'ng-matero-token', 
           uid: id, 
           username: mess.Username,
         };
+    
         // Set token info
         this.token.set({ token, uid, username});
         // Regain the initial data
         this.startup.load().then(() => {
-          let url = this.token.referrer!.url || '/';
-          if (url.includes('/auth')) {
-            url = '/';
-          }
-          this.router.navigateByUrl(url);
+          this.router.navigateByUrl("/");
         });
       })
      });
-     this.router.navigateByUrl("/");
   }
 }

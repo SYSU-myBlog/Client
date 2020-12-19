@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SettingsService, StartupService, TokenService } from '@core';
 import { HttpClient } from "@angular/common/http";  //这里是HttpClient
 
 @Component({
@@ -13,6 +14,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private settings: SettingsService,
     private $http: HttpClient,
   ) {
     this.registerForm = this.fb.group({
@@ -34,7 +36,7 @@ export class RegisterComponent implements OnInit {
     };
     // console.log(JSON.stringify(formData));
     // 发送登录请求
-    this.$http.post("http://172.26.104.90:9999/user/register",formData).subscribe(res=>{ 
+    this.$http.post(this.settings.URL+":9999/user/register",formData).subscribe(res=>{ 
       console.log(JSON.stringify(res)); 
       var res_string = JSON.stringify(res);
       var res_data = {

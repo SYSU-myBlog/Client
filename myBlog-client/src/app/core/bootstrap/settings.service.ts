@@ -4,12 +4,26 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { AppSettings, defaults } from '../settings';
 
 export const USER_KEY = 'usr';
+export const BLOG_KEY = 'blg';
+export const URL_KEY = 'url';
 
 export interface User {
-  id: number;
+  id?: string;
   name?: string;
   email?: string;
   avatar?: string;
+}
+
+export interface Blog {
+  id?: string;
+  title?: string;
+  content?: string;
+  publisher?: string;
+  lastModified?: string;
+}
+
+export interface URL {
+  url?: string;
 }
 
 @Injectable({
@@ -38,6 +52,10 @@ export class SettingsService {
     return this.options;
   }
 
+  get URL() {
+    return "http://172.26.108.157";
+  }
+
   /** User information */
 
   get user() {
@@ -51,6 +69,16 @@ export class SettingsService {
   removeUser() {
     this.store.remove(USER_KEY);
   }
+
+  /** Blog */
+  get blog(){
+    return this.store.get(BLOG_KEY);
+  }
+
+  setBlog(value: Blog) {
+    this.store.set(BLOG_KEY, value);
+  }
+
 
   /** System language */
 
