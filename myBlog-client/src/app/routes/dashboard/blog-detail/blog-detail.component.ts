@@ -12,6 +12,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class BlogDetailComponent implements OnInit {
   commentForm: FormGroup;
 
+  res_data : any;
+
   selectedBlog = {
     id:"",
     title:"",
@@ -49,7 +51,8 @@ export class BlogDetailComponent implements OnInit {
     // console.log(this.selectedBlog);
     console.log(this.settings.URL+":9999/user/uid/"+this.selectedBlog.publisher);
     this.$http.get(this.settings.URL+":9999/user/uid/"+this.selectedBlog.publisher).subscribe(res=>{
-      var user_data = res.Message;
+      this.res_data = res;
+      var user_data = this.res_data.Message;
       this.user = {
         name : user_data.Username,
         email : user_data.Email,
@@ -59,7 +62,8 @@ export class BlogDetailComponent implements OnInit {
     });
 
     this.$http.get(this.settings.URL+":9999/like/id/"+this.selectedBlog.id).subscribe(res=>{
-      var likes = res.Message;
+      this.res_data = res;
+      var likes = this.res_data.Message;
       if(likes == null){
         this.dianzannum = 0;
       }
@@ -67,7 +71,8 @@ export class BlogDetailComponent implements OnInit {
 
     this.$http.get(this.settings.URL+":9999/comment/id/"+this.selectedBlog.id).subscribe(res=>{
       // console.log(res);
-      this.comments = res.Message;
+      this.res_data = res;
+      this.comments = this.res_data.Message;
     })
   }
 

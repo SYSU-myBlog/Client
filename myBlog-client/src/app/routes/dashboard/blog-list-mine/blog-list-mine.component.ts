@@ -10,6 +10,8 @@ import { SettingsService } from '@core';
 })
 export class BlogListMineComponent implements OnInit {
   blogs = [];
+
+  res_data : any;
   
   constructor(
     private router: Router,
@@ -17,11 +19,8 @@ export class BlogListMineComponent implements OnInit {
     private settings: SettingsService,
   ) {  
     this.$http.get(this.settings.URL+":9999/article/publisher/"+this.settings.user.id).subscribe(res=>{
-      var res_obj = {
-        Message : [],
-      }
-      res_obj = res;
-      this.blogs = res_obj.Message;
+      this.res_data = res;
+      this.blogs = this.res_data.Message;
       console.log(this.blogs);
     })
   }
