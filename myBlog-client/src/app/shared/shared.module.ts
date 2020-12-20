@@ -23,7 +23,7 @@ import { DisableControlDirective } from './directives/disable-control.directive'
 
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ToObservablePipe } from './pipes/to-observable.pipe';
-
+import {UserinfoComponent} from './components/userinfo/userinfo.component'
 const MODULES = [
   MaterialModule,
   MaterialExtensionsModule,
@@ -37,7 +37,7 @@ const MODULES = [
   ToastrModule,
   TranslateModule,
 ];
-const COMPONENTS = [BreadcrumbComponent, PageHeaderComponent, ErrorCodeComponent];
+const COMPONENTS = [BreadcrumbComponent, PageHeaderComponent, ErrorCodeComponent, UserinfoComponent];
 const COMPONENTS_DYNAMIC = [];
 const DIRECTIVES = [DisableControlDirective];
 const PIPES = [SafeUrlPipe, ToObservablePipe];

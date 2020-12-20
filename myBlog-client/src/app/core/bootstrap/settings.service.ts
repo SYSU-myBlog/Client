@@ -7,6 +7,8 @@ export const USER_KEY = 'usr';
 export const BLOG_KEY = 'blg';
 export const URL_KEY = 'url';
 export const PARAM_KEY = 'param';
+export const Show_KEY = 'show';
+
 
 export interface User {
   id?: string;
@@ -29,6 +31,12 @@ export interface URL {
 
 export interface PARAM{
   needsRefresh?: Boolean;
+}
+
+export interface Show{
+  publiclists?: Boolean;
+  mylists?: Boolean;
+  userinfo?: Boolean;
 }
 
 @Injectable({
@@ -103,4 +111,12 @@ export class SettingsService {
     this.options.language = lang;
     this.notify$.next({ lang });
   }
+
+  get Show() {
+    return this.store.get(Show_KEY);
+  }
+  setShow(value: Show) {
+    this.store.set(Show_KEY, value);
+  }
 }
+

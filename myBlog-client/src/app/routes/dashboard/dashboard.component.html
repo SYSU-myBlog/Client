@@ -1,7 +1,8 @@
-
 <!-- 所有人博客的列表 -->
-<app-blog-list></app-blog-list>
+<app-blog-list *ngIf="show.publiclists"></app-blog-list>
 
 
 <!-- 个人博客列表 -->
-<!-- <app-blog-list-mine></app-blog-list-mine> -->
+<app-blog-list-mine *ngIf="show.mylists"></app-blog-list-mine>
+
+<app-userinfo *ngIf="show.userinfo"></app-userinfo>

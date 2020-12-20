@@ -139,5 +139,8 @@
       }
     }
   },
-  "defaultProject": "myBlog-client"
+  "defaultProject": "myBlog-client",
+  "cli": {
+    "analytics": "599fe7de-13f3-446c-8899-ff778be74111"
+  }
 }

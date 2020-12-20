@@ -1,0 +1,18 @@
+<form [formGroup]="userForm" class = "form">
+    <h2>账户信息</h2>
+    <li>
+        <label>用户名：</label>
+        <input class="input" [(ngModel)]="user.name" placeholder="请输入用户名" formControlName="name">
+    </li>
+    
+    <li>
+        <label>邮箱：</label>
+        <input class="input" [(ngModel)]="user.email" placeholder="请输入邮箱" formControlName="email">
+    </li>
+
+    <li>
+        <button class="save-button" mat-raised-button color="primary"
+            (click)="save()">{{'保存' | translate}}</button>
+    </li>
+    
+</form>
