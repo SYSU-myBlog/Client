@@ -1,39 +1,56 @@
-<div class="user-container">
-    <p class="user-name">{{user.name}}</p>
-    <div class="user-email">
-        邮箱：<br>
-        {{user.email}}
-    </div>
-</div>
+<div fxLayout="column" style="width:100%;">
 
-<div class="blog-detail-container">
-    <p class="blog-detail-title">{{selectedBlog.title}}</p>
-    <div class="blog-detail-content">
-        {{selectedBlog.content}}
-    </div>
-    <p class="blog-time">
-        最近修改时间：{{selectedBlog.lastModified}}
-    </p>
-</div>
-
-<div class="buttons-container">
-    <img src="../../../../assets/images/点赞.png" style="margin:0 7px;margin-top:15px;" (click)="dianzan()">
-    <p style="margin:0 13px;margin-bottom:17px;">{{dianzannum}}</p>
-
-    <img src="../../../../assets/images/评论.png" style="margin:10px 7px;" (click)="comment()">
+    <div fxLayout='row' class="page-container" style="margin-bottom:5px;">
+        <div class="user-container" fxFlex="20">
+            <p class="user-name">{{user.name}}</p>
+            <div class="user-email">
+                邮箱：<br>
+                {{user.email}}
+            </div>
+        </div>
     
-    <img src="../../../../assets/images/返回.png" style="margin:17px 7px;" (click)="fanhui()">
-</div>
+        <div class="blog-detail-container" fxFlex="80" fxLayout="column">
+            <p *ngIf="!editable" class="blog-detail-title" fxFlew="5" fxLayoutGap="10px grid">{{selectedBlog.title}}</p>
+            <input *ngIf="editable" class="blog-detail-title" style="margin: 10px 0;;" [(ngModel)]="titleInput" fxFlew="5" fxLayoutGap="10px grid">
+            <textarea *ngIf="editable"  rows="10" class="blog-detail-content" [(ngModel)]="contentInput" fxFlew="80%" fxLayoutGap="16px grid">
+                {{selectedBlog.content}}
+            </textarea>
+            <p *ngIf="!editable" class="blog-detail-content" fxFlew="80%" fxLayoutGap="16px grid">
+                {{selectedBlog.content}}
+            </p>
+            <p class="blog-time" fxFlew="5" >
+                最近修改时间：{{selectedBlog.lastModified}}
+            </p>
+        </div>
+    
+        <div class="buttons-container">
+            <img src="../../../../assets/images/点赞.png" style="margin:0 7px;margin-top:12px;"
+                 (click)="dianzan()">
+            <p style="margin:0 13px;margin-bottom:5px;">{{dianzannum}}</p>
 
-<div *ngIf="displayComment" class="comment-container">
-    <div *ngFor="let comment of comments"  class="comment" scroll-y="true">
-        {{comment.Content}}
+            <img src="../../../../assets/images/编辑.png" style="margin:5px 7px;" (click)="edit()">
+    
+            <img src="../../../../assets/images/评论.png" style="margin:5px 7px;" (click)="comment()">
+    
+            <img src="../../../../assets/images/返回.png" style="margin:5px 7px;" (click)="fanhui()">
+        </div>
+    
+        <div *ngIf="displayComment" class="comment-input-container">
+            <form [formGroup]="commentForm">
+                <input class="comment-input" placeholder="请输入评论" formControlName="content">
+    
+                <button class="create-button" mat-raised-button color="primary"
+                        (click)="commentSub()">{{'发布' | translate}}</button>
+            </form>
+        </div>
     </div>
-    <form [formGroup]="commentForm">
-        <input class="comment-input" placeholder="请输入评论" formControlName="content">
 
-        <button class="create-button" mat-raised-button color="primary"
-                (click)="commentSub()">{{'发布' | translate}}</button>
+    <div style="background-color:white;margin-bottom: 20px;width:1000px;" fxLayoutGap="24px grid">
+        <div *ngFor="let comment of comments" class="comment">
+            <div class="comment-content">{{comment.Content}}</div>
+            <div class="comment-publisher">-- {{comment.Publisher}}</div>
+        </div>
+    </div>
 
-    </form>
+    <div style="height:30px;text-align:center;margin-top:30px;">- Copyright: nobody -</div>
 </div>

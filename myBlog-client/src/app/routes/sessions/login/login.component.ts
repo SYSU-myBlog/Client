@@ -10,6 +10,7 @@ import { HttpClient } from "@angular/common/http";  //这里是HttpClient
 })
 
 export class LoginComponent implements OnInit {
+
   loginForm: FormGroup;
   
   constructor(
@@ -19,11 +20,8 @@ export class LoginComponent implements OnInit {
     private startup: StartupService,
     private settings: SettingsService,
     private $http: HttpClient,
-    // public resList: any,
   ) {
     this.loginForm = this.fb.group({
-      // username: ['', [Validators.required, Validators.pattern('ng-matero')]],
-      // password: ['', [Validators.required, Validators.pattern('ng-matero')]],
       username: ['',[Validators.required]],
       password: ['',[Validators.required]],
     });
@@ -42,6 +40,9 @@ export class LoginComponent implements OnInit {
   login() {
     var name = this.loginForm.get('username').value;
     var pass = this.loginForm.get('password').value;
+    if(name == "" || pass == ""){
+      return ;
+    } 
     var formData = {
       username : name,
       password : pass,
@@ -49,19 +50,15 @@ export class LoginComponent implements OnInit {
     // console.log(JSON.stringify(formData));
     // 发送登录请求
     this.$http.post(this.settings.URL+":9999/user/login",formData).subscribe(res=>{ 
-      //this.resList = res;
-      // console.log(res);
       var res_string = JSON.stringify(res);
       var res_data = {
         Message:"",
       };
       res_data = JSON.parse(res_string);
       
-      // console.log(res_data.Message);
       var id_string = JSON.stringify(res_data.Message);
       var id = JSON.parse(id_string).Id;
 
-      // console.log("http://172.26.104.90:9999/user/uid/"+id);
       this.$http.get(this.settings.URL+":9999/user/uid/"+id).subscribe(res=>{
         // Set user info
         console.log(res);

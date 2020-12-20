@@ -25,3 +25,11 @@
         (click)="clickCreate()"
         style="position: fixed;bottom:20px;width:10%;right:3%">
     {{'发布文章' | translate}}</button>
+
+<div class="fenye-container" fxLayout='row'>
+    <div class="fenye-left" fxFlex = "10%" (click)="clickLeft()">《</div>
+    <div class="fenye-input" fxFlex = "65%" style="display: inline-block;">
+        {{pageIndex}}
+    </div>
+    <div class="fenye-right" fxFlex = "25%" (click)="clickRight()">》</div>
+</div>

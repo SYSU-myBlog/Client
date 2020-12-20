@@ -39,7 +39,7 @@
         <mat-checkbox>{{'register.agree' | translate}}</mat-checkbox>
       </div>
 
-      <button class="w-full" mat-raised-button color="primary"  (click)="register()">
+      <button class="w-full" mat-raised-button color="primary"  (click)="register()" [disabled]="registerForm.invalid">
         {{'register.register' | translate}}
       </button>
 

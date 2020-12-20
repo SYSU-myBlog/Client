@@ -27,14 +27,15 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {}
 
   register(){
-    console.log("submit to register.");
     var name = this.registerForm.get('username').value;
     var pass = this.registerForm.get('password').value;
+  
     var formData = {
       username : name,
       password : pass,
     };
     // console.log(JSON.stringify(formData));
+    console.log("submit to register.");
     // 发送登录请求
     this.$http.post(this.settings.URL+":9999/user/register",formData).subscribe(res=>{ 
       console.log(JSON.stringify(res)); 

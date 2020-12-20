@@ -34,6 +34,12 @@ export class BlogDetailComponent implements OnInit {
     email:"",
   }
 
+  editable = false;
+
+  titleInput = "";
+
+  contentInput = "";
+
   constructor(
     private router: Router,
     private settings: SettingsService,
@@ -43,7 +49,13 @@ export class BlogDetailComponent implements OnInit {
     this.commentForm = this.fb.group({
       content: ['',[Validators.required]],
     });
-
+    if(this.selectedBlog.id!=null || this.selectedBlog.id != ""){
+      this.$http.get(this.settings.URL+":9999/article/aid/"+this.selectedBlog.id).subscribe(res=>{
+        this.res_data = res;
+        this.selectedBlog.content = this.res_data.Message.Content;
+        this.selectedBlog.title = this.res_data.Message.Title;
+      })
+    }
   }
 
   ngOnInit(): void {
@@ -73,6 +85,7 @@ export class BlogDetailComponent implements OnInit {
       // console.log(res);
       this.res_data = res;
       this.comments = this.res_data.Message;
+      console.log(this.res_data.Message);
     })
   }
 
@@ -87,6 +100,26 @@ export class BlogDetailComponent implements OnInit {
       // alert("点赞成功");
       this.dianzannum++;
     })
+  }
+
+  edit() : void {
+    if(this.editable){
+      this.selectedBlog.content = this.contentInput;
+      this.selectedBlog.title = this.titleInput;
+      // 修改博客内容
+      var form = {
+        Content : this.contentInput,
+        Title : this.titleInput,
+      }
+      this.$http.put(this.settings.URL+":9999/article/"+this.selectedBlog.id,form).subscribe(res=>{
+        console.log(res);
+      })
+      this.editable = false;
+    } else {
+      this.contentInput = this.selectedBlog.content;
+      this.titleInput = this.selectedBlog.title;
+      this.editable = true;
+    }
   }
 
   comment(): void {
@@ -105,21 +138,23 @@ export class BlogDetailComponent implements OnInit {
       id : this.selectedBlog.id
     }
     this.$http.post(this.settings.URL+":9999/comment/publish",req).subscribe(res=>{
-      console.log(res);
       if(this.comments == null){
         this.comments = [{
           Content:req.content,
+          Publisher:req.publisher,
         }]
       } else {
         this.comments.push({
           Content:req.content,
+          Publisher:req.publisher,
         })
       }
+      this.displayComment = false;
     })
   }
 
   fanhui(): void{
-    this.settings.setParam({needsRefresh:true});
+    // this.settings.setParam({needsRefresh:true});
     this.router.navigateByUrl("/")
   }
 

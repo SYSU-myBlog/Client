@@ -44,13 +44,13 @@ export class BlogCreateComponent implements OnInit {
     // var req_json = JSON.stringify(req);
     this.$http.post(this.settings.URL+":9999/article/publish",req).subscribe(res=>{
       console.log(res);
-      this.settings.setParam({needsRefresh:true});
+      // this.settings.setParam({needsRefresh:true});
       this.router.navigateByUrl("/dashboard");
     })
   }
 
   fanhui() : void {
-    this.settings.setParam({needsRefresh:true});
+    // this.settings.setParam({needsRefresh:true});
     this.router.navigateByUrl("/dashboard");
   }
 }
