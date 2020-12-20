@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SettingsService, User } from '@core';
-
+import { ChangeDetectorRef } from "@angular/core";
 @Component({
   selector: 'app-user-panel',
   template: `
@@ -10,7 +10,7 @@ import { SettingsService, User } from '@core';
       <h5 class="matero-user-panel-email">{{ user.email }}</h5>
       <div class="matero-user-panel-icons">
         <a routerLink="/profile/overview" mat-icon-button>
-          <mat-icon>account_circle</mat-icon>
+          <mat-icon (click)="change()">account_circle</mat-icon>
         </a>
         <a routerLink="/profile/settings" mat-icon-button>
           <mat-icon>settings</mat-icon>
@@ -26,7 +26,20 @@ import { SettingsService, User } from '@core';
 export class UserPanelComponent {
   user: User;
 
-  constructor(settings: SettingsService) {
-    this.user = settings.user;
+  constructor(
+    private settings: SettingsService,
+    private cd:ChangeDetectorRef
+  ) {
+    this.user = this.settings.user;
+    // this.cd.detectChanges(); 
+  }
+  
+  change() {
+    this.settings.setShow({
+      publiclists: false,
+        mylists: false,
+        userinfo: true
+    });
+    location.reload();
   }
 }
