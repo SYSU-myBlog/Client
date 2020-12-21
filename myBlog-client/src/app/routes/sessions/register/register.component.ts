@@ -11,6 +11,8 @@ import { HttpClient } from "@angular/common/http";  //这里是HttpClient
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
+  res_data : any;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -36,17 +38,24 @@ export class RegisterComponent implements OnInit {
     };
     // console.log(JSON.stringify(formData));
     console.log("submit to register.");
-    // 发送登录请求
+    // 发送注册请求
     this.$http.post(this.settings.URL+":9999/user/register",formData).subscribe(res=>{ 
-      console.log(JSON.stringify(res)); 
-      var res_string = JSON.stringify(res);
-      var res_data = {
-        Type:"fail",
-      };
-      res_data = JSON.parse(res_string);
-      if(res_data.Type == "success"){
-        console.log("here");
-        this.router.navigateByUrl("/login");
+      console.log(res); 
+      this.res_data = res;
+      if(this.res_data.Type == "success"){
+        this.$http.get(this.settings.URL+":9999/user/username/"+name).subscribe(res=>{
+          console.log(res);
+          this.res_data = res;
+          this.settings.setUser({
+            id: this.res_data.Message.Id,
+            name: this.res_data.Message.Username,
+            email: this.res_data.Message.Email,
+            avatar: './assets/images/avatar.jpg',
+          })
+          this.router.navigateByUrl("/login");
+        })
+      } else {
+        alert(this.res_data.Message);
       }
      });
   }

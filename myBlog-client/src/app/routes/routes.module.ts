@@ -3,6 +3,8 @@ import { SharedModule } from '@shared/shared.module';
 import { RoutesRoutingModule } from './routes-routing.module';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MineListComponent } from './mineList/mineList.component';
+import { UserinfoComponent } from '../shared/components/userinfo/userinfo.component';
 import { LoginComponent } from './sessions/login/login.component';
 import { RegisterComponent } from './sessions/register/register.component';
 import { BlogListComponent } from './dashboard/blog-list/blog-list.component';
@@ -10,7 +12,7 @@ import { BlogDetailComponent } from './dashboard/blog-detail/blog-detail.compone
 import { BlogCreateComponent } from './dashboard/blog-create/blog-create.component';
 import { BlogListMineComponent } from './dashboard/blog-list-mine/blog-list-mine.component';
 
-const COMPONENTS = [DashboardComponent, LoginComponent, RegisterComponent];
+const COMPONENTS = [DashboardComponent, MineListComponent, UserinfoComponent, LoginComponent, RegisterComponent];
 const COMPONENTS_DYNAMIC = [];
 
 @NgModule({

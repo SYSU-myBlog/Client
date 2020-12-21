@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input,ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { User } from '@core';
 import { SettingsService} from '@core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -8,9 +8,10 @@ import { settings } from 'cluster';
 @Component({
   selector: 'app-userinfo',
   templateUrl: './userinfo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./userinfo.component.css']
-
 })
+
 export class UserinfoComponent implements OnInit {
   @Input() user: User;
   userForm: FormGroup;
@@ -21,8 +22,6 @@ export class UserinfoComponent implements OnInit {
     this.user = this.settings.user;
     console.log(this.user);
     this.userForm = this.fb.group({
-      // username: ['', [Validators.required, Validators.pattern('ng-matero')]],
-      // password: ['', [Validators.required, Validators.pattern('ng-matero')]],
       name: ['',[Validators.required]],
       email: ['',[Validators.required]],
     });
@@ -41,9 +40,17 @@ export class UserinfoComponent implements OnInit {
     this.http.put(this.settings.URL+":9999/user/"+this.settings.user.id,formData).subscribe(res=>{ 
       console.log(res);
       this.settings.setUser({
+        id : this.settings.user.id,
         name: name,
-        email: email
+        email: email,
+        avatar: this.settings.user.avatar,
       });
+      this.settings.setShow({
+        publiclists: true,
+        mylists: true,
+        userinfo: false
+      })
+      location.reload();
     });
   }
 

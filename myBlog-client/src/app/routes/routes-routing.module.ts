@@ -5,9 +5,11 @@ import { environment } from '@env/environment';
 import { AdminLayoutComponent } from '../theme/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from '../theme/auth-layout/auth-layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserinfoComponent } from '../shared/components/userinfo/userinfo.component';
+import { MineListComponent } from './mineList/mineList.component';
 import { LoginComponent } from './sessions/login/login.component';
 import { RegisterComponent } from './sessions/register/register.component';
-import { BlogListComponent} from './dashboard/blog-list/blog-list.component';
+import { BlogListComponent } from './dashboard/blog-list/blog-list.component';
 import { BlogDetailComponent } from './dashboard/blog-detail/blog-detail.component';
 import { BlogCreateComponent } from './dashboard/blog-create/blog-create.component';
 import { AuthGuard } from '@core';
@@ -26,9 +28,14 @@ const routes: Routes = [
         data: { title: 'Dashboard', titleI18n: 'dashboard' },
       },
       {
-        path: 'sessions',
-        loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
-        data: { title: 'Sessions', titleI18n: 'Sessions' },
+        path: 'mineList',
+        component: MineListComponent,
+        data: { title: 'MineList', titleI18n: 'mineList' },
+      },
+      {
+        path: 'userinfo',
+        component: UserinfoComponent,
+        data: { title: 'Userinfo', titleI18n: 'userinfo' },
       },
     ],
   },

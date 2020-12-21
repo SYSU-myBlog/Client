@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { SettingsService, User } from '@core';
 import { ChangeDetectorRef } from "@angular/core";
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-user-panel',
   template: `
@@ -12,15 +14,16 @@ import { ChangeDetectorRef } from "@angular/core";
         <a routerLink="/profile/overview" mat-icon-button>
           <mat-icon (click)="change()">account_circle</mat-icon>
         </a>
-        <a routerLink="/profile/settings" mat-icon-button>
-          <mat-icon>settings</mat-icon>
-        </a>
+        
         <a routerLink="/auth/login" mat-icon-button>
           <mat-icon>exit_to_app</mat-icon>
         </a>
       </div>
     </div>
   `,
+  // <a routerLink="/profile/settings" mat-icon-button>
+  //  <mat-icon>settings</mat-icon>
+  // </a>
   styleUrls: ['./user-panel.component.scss'],
 })
 export class UserPanelComponent {
@@ -28,7 +31,8 @@ export class UserPanelComponent {
 
   constructor(
     private settings: SettingsService,
-    private cd:ChangeDetectorRef
+    private cd:ChangeDetectorRef,
+    private router:Router
   ) {
     this.user = this.settings.user;
     // this.cd.detectChanges(); 
@@ -38,8 +42,8 @@ export class UserPanelComponent {
     this.settings.setShow({
       publiclists: false,
         mylists: false,
-        userinfo: true
+        userinfo: true,
     });
-    location.reload();
+    this.router.navigateByUrl("/userinfo");
   }
 }

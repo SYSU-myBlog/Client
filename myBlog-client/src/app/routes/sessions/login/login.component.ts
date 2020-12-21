@@ -12,6 +12,8 @@ import { HttpClient } from "@angular/common/http";  //这里是HttpClient
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+
+  res_data : any;
   
   constructor(
     private fb: FormBuilder,
@@ -50,14 +52,14 @@ export class LoginComponent implements OnInit {
     // console.log(JSON.stringify(formData));
     // 发送登录请求
     this.$http.post(this.settings.URL+":9999/user/login",formData).subscribe(res=>{ 
-      var res_string = JSON.stringify(res);
-      var res_data = {
-        Message:"",
-      };
-      res_data = JSON.parse(res_string);
+      this.res_data = res;
+      console.log(res);
+      if(this.res_data.Code != "200"){
+        alert("用户名或密码出错！");
+        return ;
+      }
       
-      var id_string = JSON.stringify(res_data.Message);
-      var id = JSON.parse(id_string).Id;
+      var id = this.res_data.Message.Id;
 
       this.$http.get(this.settings.URL+":9999/user/uid/"+id).subscribe(res=>{
         // Set user info
