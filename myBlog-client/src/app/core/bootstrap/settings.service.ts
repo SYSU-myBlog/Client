@@ -8,6 +8,8 @@ export const BLOG_KEY = 'blg';
 export const URL_KEY = 'url';
 export const PARAM_KEY = 'param';
 export const Show_KEY = 'show';
+export const BLG_KEY = 'blog';
+
 
 
 export interface User {
@@ -37,6 +39,12 @@ export interface Show{
   publiclists?: Boolean;
   mylists?: Boolean;
   userinfo?: Boolean;
+}
+
+export interface BLOG{
+  blog?: [];
+  flag?: Boolean;
+  search?: string;
 }
 
 @Injectable({
@@ -118,5 +126,13 @@ export class SettingsService {
   setShow(value: Show) {
     this.store.set(Show_KEY, value);
   }
+
+  get BLOG() {
+    return this.store.get(BLG_KEY);
+  }
+  setBLOG(value: BLOG) {
+    this.store.set(BLG_KEY, value);
+  }
 }
+
 

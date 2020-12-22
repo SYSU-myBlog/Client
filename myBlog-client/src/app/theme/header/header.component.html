@@ -7,8 +7,18 @@
   <app-branding *ngIf="showBranding"></app-branding>
   <span fxFlex></span>
 
+  <form [formGroup]="searchForm" class = "form">
+    <div class="exit">
+      <img src="../../../../assets/images/叉号.png"  (click)="exit()">
+    </div> 
+    <input class="input" [(ngModel)]="BLOG.search" placeholder="请输入关键字" formControlName="str">
+    
+  </form>
+  
+  
+
   <button mat-icon-button class="matero-toolbar-button">
-    <mat-icon>search</mat-icon>
+    <mat-icon (click)="search()">search</mat-icon>
   </button>
 
   <button mat-icon-button class="matero-toolbar-button" fxHide.lt-sm
@@ -16,7 +26,7 @@
     <mat-icon>fullscreen</mat-icon>
   </button>
 
-  <app-notification fxHide.lt-sm></app-notification>
+  <!-- <app-notification fxHide.lt-sm></app-notification> -->
 
   <app-translate></app-translate>
 
@@ -27,3 +37,4 @@
     <mat-icon>list</mat-icon>
   </button>
 </mat-toolbar>
+

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient,HttpParams } from "@angular/common/http";  //这里是HttpClient
 import { ChangeDetectorRef } from "@angular/core";
-import { SettingsService } from '@core';
+import { BLOG, SettingsService } from '@core';
 
 @Component({
   selector: 'app-blog-list',
@@ -16,19 +16,35 @@ export class BlogListComponent implements OnInit {
 
   pageIndex = 1;
   
+  BLOG: BLOG;
   constructor(
     private router: Router,
     private $http: HttpClient,
     private settings: SettingsService,
     private cd:ChangeDetectorRef,
   ) {  
-    let req = new HttpParams().set('page', this.pageIndex+"").set('eachPage',"5");
-    this.$http.get(this.settings.URL+":9999/article/",{params:req}).subscribe(res=>{
-      this.res_data = res;
-      this.blogs = this.res_data.Message;
-      // console.log(this.blogs);
-      this.cd.detectChanges();
-    })
+    
+    this.BLOG = this.settings.BLOG;
+    if (this.BLOG.flag == false) {
+      let req = new HttpParams().set('page', this.pageIndex+"").set('eachPage',"5");
+      this.$http.get(this.settings.URL+":9999/article/",{params:req}).subscribe(res=>{
+        this.res_data = res;
+        this.blogs = this.res_data.Message;
+        // console.log(this.blogs);
+        this.cd.detectChanges();
+      })
+    }
+    else {
+      let req = this.BLOG.search;
+      this.$http.get(this.settings.URL+":9999/article/title/"+req).subscribe(res=>{
+        this.res_data = this.BLOG.blog;
+        this.blogs = this.BLOG.blog;
+        this.cd.detectChanges();
+      })
+      
+    }
+    console.log(this.BLOG.flag)
+    
   }
 
   ngOnInit(): void {

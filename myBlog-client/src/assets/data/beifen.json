@@ -1,7 +1,7 @@
 {
     "menu": [{
         "route": "dashboard",
-        "name": "dashboard",
+        "name": "ashboard",
         "type": "link",
         "icon": "dashboard",
         "badge": {

@@ -3,7 +3,6 @@ import { User } from '@core';
 import { SettingsService} from '@core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
-import { settings } from 'cluster';
 
 @Component({
   selector: 'app-userinfo',
