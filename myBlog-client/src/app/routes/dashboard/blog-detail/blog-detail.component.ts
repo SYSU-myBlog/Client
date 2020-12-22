@@ -66,9 +66,19 @@ export class BlogDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedBlog = this.settings.blog;
+    
     // console.log(this.selectedBlog);
+    this.$http.get(this.settings.URL+":9999/article/aid/"+this.selectedBlog.id).subscribe(res=>{
+      // console.log(res);
+      this.res_data = res;
+      var content_html = this.res_data.Message.Content.replace(/\n/g,'<br>');
+      this.editable = false;
+      this.selectedBlog.content = content_html;
+      this.selectedBlog.title = this.res_data.Message.Title;
+    })
     // console.log(this.settings.URL+":9999/user/uid/"+this.selectedBlog.publisher);
     this.$http.get(this.settings.URL+":9999/user/uid/"+this.selectedBlog.publisher).subscribe(res=>{
+      // console.log(res);
       this.res_data = res;
       var user_data = this.res_data.Message;
       this.user = {
@@ -76,7 +86,7 @@ export class BlogDetailComponent implements OnInit {
         email : user_data.Email,
         id : user_data.Id,
       }
-      console.log(this.user);
+      // console.log(this.user);
     });
 
     this.$http.get(this.settings.URL+":9999/like/id/"+this.selectedBlog.id).subscribe(res=>{
@@ -140,7 +150,9 @@ export class BlogDetailComponent implements OnInit {
 
   edit() : void {
     if(this.editable){
-      this.selectedBlog.content = this.contentInput;
+      var content_html = this.contentInput.replace(/\n/g,'<br>');
+      
+      this.selectedBlog.content = content_html;
       this.selectedBlog.title = this.titleInput;
       // 修改博客内容
       var form = {
@@ -152,7 +164,12 @@ export class BlogDetailComponent implements OnInit {
       })
       this.editable = false;
     } else {
-      this.contentInput = this.selectedBlog.content;
+      var content_text = this.selectedBlog.content.replace('<br>', "\n");
+      while(content_text.indexOf('<br>') != -1){
+        content_text = content_text.replace('<br>',"\n");
+      }
+      console.log(content_text);
+      this.contentInput = content_text;
       this.titleInput = this.selectedBlog.title;
       this.editable = true;
     }

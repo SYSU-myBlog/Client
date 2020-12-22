@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
     };
     // console.log(JSON.stringify(formData));
     // 发送登录请求
-    this.$http.post(this.settings.URL+":9999/user/login",formData).subscribe(res=>{ 
+    this.$http.post(this.settings.URL+":9999/user/login",formData).subscribe((res)=>{ 
       this.res_data = res;
       console.log(res);
       if(this.res_data.Code != "200"){

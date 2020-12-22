@@ -8,7 +8,7 @@
   <span fxFlex></span>
 
   <form [formGroup]="searchForm" class = "form">
-    <div class="exit">
+    <div class="exit" style="position: fixed; right:335px;top:15px;">
       <img src="../../../../assets/images/叉号.png"  (click)="exit()">
     </div> 
     <input class="input" [(ngModel)]="BLOG.search" placeholder="请输入关键字" formControlName="str">

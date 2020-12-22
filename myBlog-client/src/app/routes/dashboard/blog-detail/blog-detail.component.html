@@ -15,9 +15,9 @@
             <textarea *ngIf="editable"  rows="10" class="blog-detail-content" [(ngModel)]="contentInput" fxFlew="80%" fxLayoutGap="16px grid">
                 {{selectedBlog.content}}
             </textarea>
-            <p *ngIf="!editable" class="blog-detail-content" fxFlew="80%" fxLayoutGap="16px grid">
-                {{selectedBlog.content}}
-            </p>
+            <p *ngIf="!editable" class="blog-detail-content" fxFlew="80%" fxLayoutGap="16px grid" 
+                [innerHTML]="selectedBlog.content" ></p>
+                <!-- {{selectedBlog.content}}<br><br><br /> -->
             <p class="blog-time" fxFlew="5" >
                 最近修改时间：{{selectedBlog.lastModified}}
             </p>
